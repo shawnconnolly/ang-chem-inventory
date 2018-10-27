@@ -1,0 +1,21 @@
+<form [formGroup]="roomForm" >
+  <label for="name">Name</label>
+  <input type="text" name="name" class="form-control" formControlName="name" >
+  <label for="location">Location</label>
+  <input type="text" name="location" class="form-control" formControlName="location">
+  <button class="btn btn-primary" (click)="onAdd()">Add</button>
+  <button class="btn btn-primary">Remove</button>
+  <button class="btn btn-primary">Edit</button>
+  <button class="btn btn-primary">View Chemicals</button>
+</form>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let room of rooms">
+        {{ room.name }} - {{ room.location }}
+      </li>
+    </ul>
+  </div>
+</div>
