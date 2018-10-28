@@ -6,7 +6,7 @@
   <button class="btn btn-primary" (click)="onAdd()" [disabled]="selectedRoom !== -1">Add</button>
   <button class="btn btn-primary" (click)="onRemove()" [disabled]="selectedRoom === -1">Remove</button>
   <button class="btn btn-primary" (click)="onEdit()" [disabled]="selectedRoom === -1">Edit</button>
-  <button class="btn btn-primary" [disabled]="selectedRoom === -1">View Chemicals</button>
+  <button class="btn btn-primary" [disabled]="selectedRoom === -1" (click)="onViewChemicals()">View Chemicals</button>
 </form>
 <div class="row">
   <div class="col-xs-12">

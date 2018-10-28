@@ -3,6 +3,7 @@ import { Chemical } from './../chemicals/chemical.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Room } from './room.model'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
@@ -15,7 +16,8 @@ export class RoomsComponent implements OnInit {
   chemical: Chemical;
   chemicals: Chemical[];
   selectedRoom: number;
-  constructor(private roomsService: RoomsService) { }
+
+  constructor(private roomsService: RoomsService, private router: Router) { }
 
   ngOnInit() {
     this.selectedRoom = -1;
@@ -28,14 +30,12 @@ export class RoomsComponent implements OnInit {
   }
 
   onAdd() {
-    console.log(this.roomForm.value['name']);
     this.roomsService.addRoom(new Room (this.roomForm.value['name'], this.roomForm.value['location'], new Array<Chemical>()));
     this.rooms = this.roomsService.getRooms();
     this.resetForm();
   }
 
   onSelect(index) {
-    console.log("selected: " + index);
     this.roomsService.selectRoom(index);
     this.roomForm.patchValue({
       name: this.rooms[index].name,
@@ -45,7 +45,6 @@ export class RoomsComponent implements OnInit {
   }
 
   onRemove() {
-    console.log("removing selected: " + this.selectedRoom);
     this.roomsService.removeRoom();
     this.rooms = this.roomsService.getRooms();
     this.roomsService.selectRoom(-1);
@@ -53,7 +52,6 @@ export class RoomsComponent implements OnInit {
   }
 
   onEdit() {
-    console.log("editing selected: " + this.selectedRoom);
     this.roomsService.editRoom(new Room(this.roomForm.value['name'], this.roomForm.value['location'], null));
     this.rooms = this.roomsService.getRooms();
     this.resetForm();
@@ -66,5 +64,8 @@ export class RoomsComponent implements OnInit {
     });
 
     this.selectedRoom = -1;
+  }
+  onViewChemicals() {
+    this.router.navigate(['chemicals'])
   }
 }

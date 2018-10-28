@@ -1,3 +1,33 @@
-<p>
-  chemicals works!
-</p>
+<h2>{{selectedRoom.name}}</h2>
+<h3>{{selectedRoom.location}}</h3>
+
+<form [formGroup]="chemicalsForm" >
+  <label for="name">Name</label>
+  <input type="text" name="name" class="form-control" formControlName="name" >
+  <label for="tradeName">Trade Name</label>
+  <input type="text" name="tradeName" class="form-control" formControlName="tradeName" >
+  <label for="description">Description</label>
+  <input type="text" name="description" class="form-control" formControlName="description" >
+  <label for="quantity">Quantity</label>
+  <input type="text" name="quantity" class="form-control" formControlName="quantity" >
+  <label for="unitOfMeasure">Unit Of Measure</label>
+  <input type="text" name="unitOfMeasure" class="form-control" formControlName="unitOfMeasure" >
+  <label for="cabinet">Cabinet</label>
+  <input type="text" name="cabinet" class="form-control" formControlName="cabinet">
+  <button class="btn btn-primary" (click)="onAdd()" [disabled]="selectedChemical !== -1">Add</button>
+  <button class="btn btn-primary" (click)="onRemove()" [disabled]="selectedChemical === -1">Remove</button>
+  <button class="btn btn-primary" (click)="onEdit()" [disabled]="selectedChemical === -1">Edit</button>
+</form>
+
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let chemical of chemicals;let i = index"
+        (click)="onSelect(i)">
+        {{ chemical.name }} - {{ chemical.cabinet }}
+      </li>
+    </ul>
+  </div>
+</div>

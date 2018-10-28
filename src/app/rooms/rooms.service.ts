@@ -42,4 +42,36 @@ export class RoomsService {
   getSelectedRoom() {
     return this.selectedRoom;
   }
+
+  getRoom() {
+    return this.rooms[this.selectedRoom];
+  }
+  
+  getChemicals() {
+    return this.rooms[this.selectedRoom].chemicals;
+  }
+
+  addChemical(chemical: Chemical) {
+    const rooms = [...this.rooms];
+    const chemicals = [...this.rooms[this.selectedRoom].chemicals];
+    chemicals.push(chemical);
+    rooms[this.selectedRoom].chemicals = chemicals;
+    this.rooms = rooms;
+  }
+
+  editChemical(chemical: Chemical, index: number) {
+    const rooms = [...this.rooms];
+    const chemicals = [...this.rooms[this.selectedRoom].chemicals];
+    chemicals[index] = (chemical);
+    rooms[this.selectedRoom].chemicals = chemicals;
+    this.rooms = rooms;
+  }
+
+  removeChemical(index: number) {
+    const rooms = [...this.rooms];
+    const chemicals = [...this.rooms[this.selectedRoom].chemicals];
+    chemicals.splice(index, 1);
+    rooms[this.selectedRoom].chemicals = chemicals;
+    this.rooms = rooms;
+  }
 }
