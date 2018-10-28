@@ -1,3 +1,4 @@
+import { RoomsService } from './rooms/rooms.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +22,7 @@ import { HeaderComponent } from './header/header.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [RoomsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

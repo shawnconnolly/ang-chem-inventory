@@ -3,17 +3,18 @@
   <input type="text" name="name" class="form-control" formControlName="name" >
   <label for="location">Location</label>
   <input type="text" name="location" class="form-control" formControlName="location">
-  <button class="btn btn-primary" (click)="onAdd()">Add</button>
-  <button class="btn btn-primary">Remove</button>
-  <button class="btn btn-primary">Edit</button>
-  <button class="btn btn-primary">View Chemicals</button>
+  <button class="btn btn-primary" (click)="onAdd()" [disabled]="selectedRoom !== -1">Add</button>
+  <button class="btn btn-primary" (click)="onRemove()" [disabled]="selectedRoom === -1">Remove</button>
+  <button class="btn btn-primary" (click)="onEdit()" [disabled]="selectedRoom === -1">Edit</button>
+  <button class="btn btn-primary" [disabled]="selectedRoom === -1">View Chemicals</button>
 </form>
 <div class="row">
   <div class="col-xs-12">
     <ul class="list-group">
       <li
         class="list-group-item"
-        *ngFor="let room of rooms">
+        *ngFor="let room of rooms;let i = index"
+        (click)="onSelect(i)">
         {{ room.name }} - {{ room.location }}
       </li>
     </ul>
