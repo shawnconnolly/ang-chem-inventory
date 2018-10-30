@@ -1,3 +1,7 @@
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AuthService } from './auth/auth.service';
 import { RoomsService } from './rooms/rooms.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -14,7 +18,9 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     RoomsComponent,
     ChemicalsComponent,
-    HeaderComponent
+    HeaderComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,7 @@ import { HeaderComponent } from './header/header.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [RoomsService],
+  providers: [RoomsService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

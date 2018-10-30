@@ -2,6 +2,14 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a routerLink="/" class="navbar-brand">Rooms</a>
+      <ng-template [ngIf]="!authService.isAuthenticated()">
+        <a routerLink="/signup" class="navbar-brand">Register</a>
+        <a routerLink="/signin" class="navbar-brand">Login</a>
+      </ng-template>
+      <a
+          style="cursor: pointer;"
+          (click)="onLogout()"
+          *ngIf="authService.isAuthenticated()" class="navbar-brand">Logout</a>
     </div>
   </div>
 </nav>
