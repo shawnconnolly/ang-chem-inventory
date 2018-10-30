@@ -16,6 +16,7 @@ export class RoomsComponent implements OnInit {
   chemical: Chemical;
   chemicals: Chemical[];
   selectedRoom: number;
+  validCombo: boolean = true;
 
   constructor(private roomsService: RoomsService, private router: Router) { }
 
@@ -28,6 +29,21 @@ export class RoomsComponent implements OnInit {
     });
 
   }
+
+  validateNameAndLocation() {
+    const name = this.roomForm.value['name'];
+    const location = this.roomForm.value['location'];
+    console.log('validating: ' + name + ' - ' + location);
+    var newArray = this.rooms.filter(function (room) {
+        return room.name === name &&
+            room.location === location;
+    });
+    if (newArray.length !== 0) {
+        this.validCombo = false;
+    } else {
+        this.validCombo = true;
+    }
+}
 
   onAdd() {
     this.roomsService.addRoom(new Room (this.roomForm.value['name'], this.roomForm.value['location'], new Array<Chemical>()));
