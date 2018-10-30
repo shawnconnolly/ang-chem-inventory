@@ -1,3 +1,4 @@
+import { AuthCanDeactivateGuard } from './auth/auth-can-deactivate.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGuard } from './auth/auth-guard.service';
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { ChemicalsComponent } from './chemicals/chemicals.component';
 import { HeaderComponent } from './header/header.component';
+import { DialogService } from './dialog.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import { HeaderComponent } from './header/header.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [RoomsService, AuthService, AuthGuard],
+  providers: [RoomsService, AuthService, AuthGuard, AuthCanDeactivateGuard, DialogService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

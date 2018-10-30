@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { DialogService } from './../dialog.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RoomsService } from '../rooms/rooms.service';
@@ -10,11 +12,13 @@ import { Chemical } from './chemical.model';
   styleUrls: ['./chemicals.component.css']
 })
 export class ChemicalsComponent implements OnInit {
-  selectedRoom : Room;
+  selectedRoom: Room;
   chemicalsForm: FormGroup;
   chemicals: Chemical[];
   selectedChemical: number;
-  constructor(private roomService: RoomsService) { }
+  constructor(private roomService: RoomsService,
+    public dialogService: DialogService
+  ) { }
 
   ngOnInit() {
     this.selectedRoom = this.roomService.getRoom();
@@ -29,6 +33,19 @@ export class ChemicalsComponent implements OnInit {
       cabinet: new FormControl('', Validators.required)
     });
   }
+
+	canDeactivate(): Observable<boolean> | boolean {
+    if (this.chemicalsForm.value['name'] !== '' ||
+    this.chemicalsForm.value['tradeName'] !== '' ||
+    this.chemicalsForm.value['description'] !== '' ||
+    this.chemicalsForm.value['quantity'] !== '' ||
+    this.chemicalsForm.value['unitOfMeasure'] !== '' ||
+    this.chemicalsForm.value['cabinet'] !== '') {
+        return this.dialogService.confirm('Discard changes for Chemical?');
+    }
+    return true;
+}	
+
 
   onAdd() {
     this.roomService.addChemical(
