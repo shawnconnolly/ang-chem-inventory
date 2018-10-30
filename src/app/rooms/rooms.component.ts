@@ -33,7 +33,6 @@ export class RoomsComponent implements OnInit {
   validateNameAndLocation() {
     const name = this.roomForm.value['name'];
     const location = this.roomForm.value['location'];
-    console.log('validating: ' + name + ' - ' + location);
     var newArray = this.rooms.filter(function (room) {
         return room.name === name &&
             room.location === location;
