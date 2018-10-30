@@ -16,10 +16,6 @@ export class AuthCanDeactivateGuard implements CanDeactivate<CanComponentDeactiv
   canDeactivate(component: CanComponentDeactivate,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-
-    let url: string = state.url;
-    console.log('Url: ' + url);
-
     return component.canDeactivate ? component.canDeactivate() : true;
   }
 

@@ -19,6 +19,9 @@ export class RoomsService {
   getRooms() {
     return this.rooms;
   }
+  setRooms(rooms: Room[]) {
+    this.rooms = rooms;
+  }
   addRoom(room: Room) {
     this.rooms.push(room);
     this.selectedRoom = -1;

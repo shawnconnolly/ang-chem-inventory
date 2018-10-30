@@ -1,3 +1,5 @@
+import { AuthService } from './../auth/auth.service';
+import { DataStorageService } from './../data-storage.service';
 import { Observable } from 'rxjs';
 import { DialogService } from './../dialog.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RoomsService } from '../rooms/rooms.service';
 import { Room } from '../rooms/room.model';
 import { Chemical } from './chemical.model';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-chemicals',
@@ -17,13 +20,18 @@ export class ChemicalsComponent implements OnInit {
   chemicals: Chemical[];
   selectedChemical: number;
   constructor(private roomService: RoomsService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private dataStorageService: DataStorageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.selectedRoom = this.roomService.getRoom();
     this.chemicals = this.roomService.getChemicals();
     this.selectedChemical = -1;
+    if (this.authService.isAuthenticated) {
+      this.dataStorageService.fetchRooms();
+    }
     this.chemicalsForm = new FormGroup({
       name: new FormControl('', Validators.required),
       tradeName: new FormControl('', Validators.required),
@@ -34,18 +42,34 @@ export class ChemicalsComponent implements OnInit {
     });
   }
 
-	canDeactivate(): Observable<boolean> | boolean {
+  canDeactivate(): Observable<boolean> | boolean {
     if (this.chemicalsForm.value['name'] !== '' ||
-    this.chemicalsForm.value['tradeName'] !== '' ||
-    this.chemicalsForm.value['description'] !== '' ||
-    this.chemicalsForm.value['quantity'] !== '' ||
-    this.chemicalsForm.value['unitOfMeasure'] !== '' ||
-    this.chemicalsForm.value['cabinet'] !== '') {
-        return this.dialogService.confirm('Discard changes for Chemical?');
+      this.chemicalsForm.value['tradeName'] !== '' ||
+      this.chemicalsForm.value['description'] !== '' ||
+      this.chemicalsForm.value['quantity'] !== '' ||
+      this.chemicalsForm.value['unitOfMeasure'] !== '' ||
+      this.chemicalsForm.value['cabinet'] !== '') {
+      return this.dialogService.confirm('Discard changes for Chemical?');
     }
     return true;
-}	
+  }
 
+  onDataSave() {
+    this.dataStorageService.storeRooms().subscribe(
+      (response: Response) => {
+        console.log(response);
+      }
+    );
+  }
+
+  onDataFetch() {
+    this.dataStorageService.fetchRooms().subscribe(
+      (response: Response) => {
+        console.log(response.json());
+        this.roomService.setRooms(response.json());
+      }
+    );
+  }
 
   onAdd() {
     this.roomService.addChemical(

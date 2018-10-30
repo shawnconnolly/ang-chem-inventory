@@ -1,3 +1,4 @@
+import { DataStorageService } from './data-storage.service';
 import { AuthCanDeactivateGuard } from './auth/auth-can-deactivate.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
@@ -14,6 +15,7 @@ import { RoomsComponent } from './rooms/rooms.component';
 import { ChemicalsComponent } from './chemicals/chemicals.component';
 import { HeaderComponent } from './header/header.component';
 import { DialogService } from './dialog.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { DialogService } from './dialog.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
-  providers: [RoomsService, AuthService, AuthGuard, AuthCanDeactivateGuard, DialogService ],
+  providers: [RoomsService, AuthService, AuthGuard, AuthCanDeactivateGuard, DialogService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
