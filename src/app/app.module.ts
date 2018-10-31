@@ -1,17 +1,12 @@
+import { RoomsModule } from './rooms/rooms.module';
+import { AuthModule } from './auth/auth.module';
 import { DataStorageService } from './data-storage.service';
-import { AuthCanDeactivateGuard } from './auth/auth-can-deactivate.service';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { AuthGuard } from './auth/auth-guard.service';
-import { AuthService } from './auth/auth.service';
-import { RoomsService } from './rooms/rooms.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RoomsComponent } from './rooms/rooms.component';
 import { ChemicalsComponent } from './chemicals/chemicals.component';
 import { HeaderComponent } from './header/header.component';
 import { DialogService } from './dialog.service';
@@ -20,20 +15,21 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    RoomsComponent,
     ChemicalsComponent,
-    HeaderComponent,
-    SigninComponent,
-    SignupComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    AuthModule,
+    RoomsModule
   ],
-  providers: [RoomsService, AuthService, AuthGuard, AuthCanDeactivateGuard, DialogService, DataStorageService],
+  providers: [
+    DialogService,
+    DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
