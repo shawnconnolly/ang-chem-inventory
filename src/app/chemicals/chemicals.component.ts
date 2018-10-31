@@ -43,12 +43,12 @@ export class ChemicalsComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (this.chemicalsForm.value['name'] !== '' ||
-      this.chemicalsForm.value['tradeName'] !== '' ||
-      this.chemicalsForm.value['description'] !== '' ||
-      this.chemicalsForm.value['quantity'] !== '' ||
-      this.chemicalsForm.value['unitOfMeasure'] !== '' ||
-      this.chemicalsForm.value['cabinet'] !== '') {
+    if (this.chemicalsForm.value.name !== '' ||
+      this.chemicalsForm.value.tradeName !== '' ||
+      this.chemicalsForm.value.description !== '' ||
+      this.chemicalsForm.value.quantity !== '' ||
+      this.chemicalsForm.value.unitOfMeasure !== '' ||
+      this.chemicalsForm.value.cabinet !== '') {
       return this.dialogService.confirm('Discard changes for Chemical?');
     }
     return true;
@@ -74,12 +74,12 @@ export class ChemicalsComponent implements OnInit {
   onAdd() {
     this.roomService.addChemical(
       new Chemical(
-        this.chemicalsForm.value['name'],
-        this.chemicalsForm.value['tradeName'],
-        this.chemicalsForm.value['description'],
-        this.chemicalsForm.value['quantity'],
-        this.chemicalsForm.value['unitOfMeasure'],
-        this.chemicalsForm.value['cabinet']));
+        this.chemicalsForm.value.name,
+        this.chemicalsForm.value.tradeName,
+        this.chemicalsForm.value.description,
+        this.chemicalsForm.value.quantity,
+        this.chemicalsForm.value.unitOfMeasure,
+        this.chemicalsForm.value.cabinet));
     this.resetForm();
   }
   onRemove() {
@@ -88,12 +88,12 @@ export class ChemicalsComponent implements OnInit {
   }
   onEdit() {
     this.roomService.editChemical(new Chemical(
-      this.chemicalsForm.value['name'],
-      this.chemicalsForm.value['tradeName'],
-      this.chemicalsForm.value['description'],
-      this.chemicalsForm.value['quantity'],
-      this.chemicalsForm.value['unitOfMeasure'],
-      this.chemicalsForm.value['cabinet']), this.selectedChemical);
+      this.chemicalsForm.value.name,
+      this.chemicalsForm.value.tradeName,
+      this.chemicalsForm.value.description,
+      this.chemicalsForm.value.quantity,
+      this.chemicalsForm.value.unitOfMeasure,
+      this.chemicalsForm.value.cabinet), this.selectedChemical);
     this.resetForm();
   }
   onSelect(index) {

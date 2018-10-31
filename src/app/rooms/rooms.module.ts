@@ -3,6 +3,7 @@ import { RoomsComponent } from './rooms.component';
 import { RoomsService } from './rooms.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RoomsValidationService } from './rooms-validation.service';
 
 @NgModule({
   declarations: [RoomsComponent],
@@ -11,6 +12,6 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [RoomsService]
+  providers: [RoomsService, RoomsValidationService]
 })
 export class RoomsModule { }

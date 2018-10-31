@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Room } from './room.model'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RoomsValidationService } from './rooms-validation.service';
 
 @Component({
   selector: 'app-rooms',
@@ -18,7 +19,9 @@ export class RoomsComponent implements OnInit {
   selectedRoom: number;
   validCombo: boolean = true;
 
-  constructor(private roomsService: RoomsService, private router: Router) { }
+  constructor(private roomsService: RoomsService,
+    private router: Router,
+    private roomsValidationService: RoomsValidationService) { }
 
   ngOnInit() {
     this.selectedRoom = -1;
@@ -31,21 +34,13 @@ export class RoomsComponent implements OnInit {
   }
 
   validateNameAndLocation() {
-    const name = this.roomForm.value['name'];
-    const location = this.roomForm.value['location'];
-    var newArray = this.rooms.filter((room) => {
-        return room.name === name &&
-            room.location === location;
-    });
-    if (newArray.length !== 0) {
-        this.validCombo = false;
-    } else {
-        this.validCombo = true;
-    }
-}
+    this.validCombo = this.roomsValidationService.validateNameAndLocation(this.rooms,
+      this.roomForm.value.name,
+      this.roomForm.value.location);
+  }
 
   onAdd() {
-    this.roomsService.addRoom(new Room (this.roomForm.value['name'], this.roomForm.value['location'], new Array<Chemical>()));
+    this.roomsService.addRoom(new Room(this.roomForm.value.name, this.roomForm.value.location, new Array<Chemical>()));
     this.rooms = this.roomsService.getRooms();
     this.resetForm();
   }
@@ -67,7 +62,7 @@ export class RoomsComponent implements OnInit {
   }
 
   onEdit() {
-    this.roomsService.editRoom(new Room(this.roomForm.value['name'], this.roomForm.value['location'], null));
+    this.roomsService.editRoom(new Room(this.roomForm.value.name, this.roomForm.value.location, null));
     this.rooms = this.roomsService.getRooms();
     this.resetForm();
   }
