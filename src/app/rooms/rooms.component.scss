@@ -10,3 +10,40 @@ button {
 .list-group-item:active {
     border: 2px solid black;
 }
+
+.form-container {
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    grid-column-gap: 0.5rem;
+    grid-template-columns: 5rem auto 5rem;
+}
+
+.label-name {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+}
+
+.text-name {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+}
+
+.label-location {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+}
+
+.text-location {
+    grid-row: 4 / 5;
+    grid-column: 2 / 3;
+}
+
+button {
+    grid-column: 2 / 3;
+    margin: 0.25rem;
+}
+
+ul {
+    grid-column: 2 / 3;
+    padding: 0px;
+}

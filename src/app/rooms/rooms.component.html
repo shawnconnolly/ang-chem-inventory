@@ -1,23 +1,21 @@
-<form [formGroup]="roomForm" >
-  <label for="name">Name</label>
-  <input type="text" name="name" class="form-control" formControlName="name" (keyup)="validateNameAndLocation()">
-  <label for="location">Location</label>
-  <input type="text" name="location" class="form-control" formControlName="location" (keyup)="validateNameAndLocation()">
+<form [formGroup]="roomForm" class="form-container">
+  <label for="name" class="label-name">Name</label>
+  <input type="text" name="name" class="form-control text-name" formControlName="name" (keyup)="validateNameAndLocation()">
+  <label for="location" class="label-location">Location</label>
+  <input type="text" name="location" class="form-control text-location" formControlName="location" (keyup)="validateNameAndLocation()">
   <p *ngIf="!validCombo">Please enter unique name and location</p>
   <button class="btn btn-primary" (click)="onAdd()" [disabled]="selectedRoom !== -1 || !validCombo">Add</button>
   <button class="btn btn-primary" (click)="onRemove()" [disabled]="selectedRoom === -1">Remove</button>
   <button class="btn btn-primary" (click)="onEdit()" [disabled]="selectedRoom === -1 || !validCombo">Edit</button>
   <button class="btn btn-primary" [disabled]="selectedRoom === -1" (click)="onViewChemicals()">View Chemicals</button>
+  <ul class="list-group">
+    <li
+      class="list-group-item"
+      *ngFor="let room of rooms;let i = index"
+      (click)="onSelect(i)">
+      {{ room.name }} - {{ room.location }}
+    </li>
+  </ul>
 </form>
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let room of rooms;let i = index"
-        (click)="onSelect(i)">
-        {{ room.name }} - {{ room.location }}
-      </li>
-    </ul>
-  </div>
-</div>
+
+

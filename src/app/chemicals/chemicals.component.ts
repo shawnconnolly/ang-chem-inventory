@@ -12,7 +12,7 @@ import { Response } from '@angular/http';
 @Component({
   selector: 'app-chemicals',
   templateUrl: './chemicals.component.html',
-  styleUrls: ['./chemicals.component.css']
+  styleUrls: ['./chemicals.component.scss']
 })
 export class ChemicalsComponent implements OnInit {
   selectedRoom: Room;
