@@ -1,35 +1,44 @@
+import { RoomsModule } from './rooms/rooms.module';
+import { AuthModule } from './auth/auth.module';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { ChemicalsComponent } from './chemicals/chemicals.component';
+import { HeaderComponent } from './header/header.component';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {APP_BASE_HREF} from '@angular/common';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        AuthModule,
+        RoomsModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        ChemicalsComponent,
+        HeaderComponent
       ],
+      providers: [{provide: APP_BASE_HREF, useValue : '/' }]
     }).compileComponents();
   }));
-
-  it('should create the app', () => {
+  it('app header and router outlet exists', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    const appHeaderElement = fixture.debugElement.query(By.css('app-header'));
+    const routerOutletElement = fixture.debugElement.query(By.css('router-outlet'));
+    const component = fixture.componentInstance;
+    expect(appHeaderElement).toBeTruthy();
+    expect(routerOutletElement).toBeTruthy();
+  })
 
-  it(`should have as title 'ang-chem-inventory'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ang-chem-inventory');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ang-chem-inventory!');
-  });
 });
